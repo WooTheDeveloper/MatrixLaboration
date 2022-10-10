@@ -7,6 +7,7 @@ using UnityEngine;
 public class MainWin : EditorWindow
 {
     public Vector3 v3;
+    public Vector3 v3Out;
     public Vector4 v4;
     public Matrix4x4 matrix1 = Matrix4x4.identity;
     public Matrix4x4 matrix2 = Matrix4x4.identity;
@@ -26,12 +27,13 @@ public class MainWin : EditorWindow
         GUIMatrix1();
         GUIMatrix2();
         GUIMatrix3();
+        GUIVector3Out();
         GUIFunc1();
     }
     
     void GUIFunc1()
     {
-        if (GUILayout.Button("euler to matrix"))
+        if (GUILayout.Button("euler to matrix ... v3 -> matrix1"))
         {
             var q = Quaternion.Euler(v3);
             matrix1 =  Matrix4x4.Rotate(q);
@@ -48,11 +50,27 @@ public class MainWin : EditorWindow
             matrix2 = matrix1.inverse;
             matrix3 = Camera.main.transform.worldToLocalMatrix;
         }
+
+        if (GUILayout.Button("v3 -> rot with matrix1 -> v3 out"))
+        {
+            v3Out = matrix1.MultiplyVector(v3);
+        }
+
+        if (GUILayout.Button("v4 求商和求余 -> v4.z = v4.x/v4.y , v4.w = v4.x % v4.y"))
+        {
+            v4.z = (int) (v4.x / v4.y);
+            v4.w = (v4.x % v4.y);
+        }
     }
 
     void GUIVector3()
     {
         v3 = EditorGUILayout.Vector3Field("Vector3", v3);
+    }
+    
+    void GUIVector3Out()
+    {
+        v3Out = EditorGUILayout.Vector3Field("Vector3Out", v3Out);
     }
     
     void GUIVector4()
