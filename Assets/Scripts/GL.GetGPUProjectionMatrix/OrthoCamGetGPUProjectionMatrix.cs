@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-public class LearnGetGPUProjectionMatrix : MonoBehaviour
+public class OrthoCamGetGPUProjectionMatrix : MonoBehaviour
 {
     //相机设置为 ortho , size = 2(视口高度的一半),GameView宽高比为 2：1，近裁剪面1，远裁剪面100，最后的值等同于下面几个
     [SerializeField]
@@ -43,7 +43,7 @@ public class LearnGetGPUProjectionMatrix : MonoBehaviour
 
         
         //------------------Matrix_P in UnityEngine-------------------------------
-        //下面是 Open GL 正交矩阵公式
+        //下面是 Open GL 正交矩阵公式,由于坐标原点在屏幕中心，所以m03,m13和冯乐乐p81叶不冲突
         //         | 2/(R-L)    0        0        -(R+L)/(R-L) |    | 2/(4-(-4))  0            0            0        |    |0.25    0     0     0     |
         //         | 0        2/(t-b)    0        -(t+b)/(t-b) |    | 0           2/(2-(-2))   0            0        |    |0     0.5     0     0     |    
         // Ortho = | 0          0     -2/(f-n)    -(f+n)/(f-n) |  = | 0           0      -2/(100-1) -(100+1)/(100-1))| =  |0       0  -0.0202 -1.0202|    
