@@ -71,7 +71,7 @@ public class OrthoCamGetGPUProjectionMatrix : MonoBehaviour
         //------------------Matrix_P in GPU (DX11 styled)-------------------------------
         //DX11图形API环境下上述Projection矩阵(unity中的openGL风格)转换成DX11风格,然后送入GPU
         //最后面是 Camera.ProjectionMatrix 到 shader 中 unity_Matrix_P矩阵的实现过程
-        Matrix4x4 gpuProjectionMatrix = GL.GetGPUProjectionMatrix(ortho, true);
+        Matrix4x4 gpuProjectionMatrix = GL.GetGPUProjectionMatrix(ortho, true);    //如果不进行这步操作，视空间的z映射到了-1，1之间，renderIntoTexture为true时，y会颠倒
         Matrix4x4 unity_MatrixVP = gpuProjectionMatrix * cam.worldToCameraMatrix;
         Debug.LogError("GL.GetGPUProjectionMatrix，去对比FrameDebug中的unity_MatrixVP :\n " + unity_MatrixVP.ToString("0.000"));
         //上述计算过程的实现
